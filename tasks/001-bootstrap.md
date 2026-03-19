@@ -1,18 +1,1 @@
-# Task 001 - Verify App Boot
-
-## Goal
-Ensure the Expo app starts successfully and shows a basic screen.
-
-## Constraints
-- do not change dependencies
-- minimal changes only
-
-## Acceptance Criteria
-- app starts via expo
-- no errors on startup
-- a visible screen is rendered
-
-## Validation
-- run: npx expo start --clear
-- open app
-- expect: no crash, visible UI
+ich möchte als erste Seite direkt einen auth flow mit supabase haben. mach mir einen standart social login mit google. NAchdem erfolgreich eingelogt ist, zeige einen erfolgspage.

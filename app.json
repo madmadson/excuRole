@@ -21,10 +21,20 @@
         "backgroundImage": "./assets/android-icon-background.png",
         "monochromeImage": "./assets/android-icon-monochrome.png"
       },
-      "predictiveBackGestureEnabled": false
+      "predictiveBackGestureEnabled": false,
+      "package": "com.madson_t.excuRole"
     },
+    "scheme": "excurole",
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "extra": {
+      "eas": {
+        "projectId": "6d5ffe00-4bd4-4275-883a-2db553022b98"
+      }
+    },
+    "plugins": [
+      "expo-web-browser"
+    ]
   }
 }

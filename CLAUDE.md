@@ -1,113 +1,58 @@
-# CLAUDE.md
+# Project Overview
+This repository contains:
+- Expo / React Native app for Android and iOS
+- Shared frontend code for mobile and web where feasible
+- Supabase as backend (database, auth, storage, edge functions if used)
+- Vercel for web deployment
 
-## Mission
 
-Build this Expo app in small, safe, reproducible steps.
-Keep the app runnable at all times.
+# Architecture
+- Use Expo-managed workflow unless a native module explicitly requires prebuild/eject.
+- Keep business logic out of screens; use hooks/services/lib modules.
+- Supabase access must be centralized in a small client layer.
+- Do not mix server-only code into Expo client code.
+- Web deployment targets Vercel.
 
----
+# File Organization
+- App routes/screens live in `src/screens/`
+- Reusable UI components live in `src/components/`
+- Supabase client/config lives in `src/supabase/`
+- Business/domain logic lives in `src/domain/`
+- Shared types live in `src/types/`
 
-## Context Loading Rules (IMPORTANT)
+# Development Workflow
+- Install dependencies with `npm install`
+- Start Expo dev server with `npx expo start`
+- Run web locally with `npx expo start --web`
+- Run tests with `npm test`
+- Run lint with `npm run lint`
+- Before major changes, propose a short plan first.
 
-Always assume the following files are part of the working context:
+# Platform Rules
+- Prefer Expo-compatible libraries.
+- Avoid native dependencies unless there is no Expo-first alternative.
+- Any platform-specific code must be isolated clearly.
+- Keep Android, iOS, and web parity in mind, but do not force identical UX when platform conventions differ.
 
-- docs/PROJECT.md
-- docs/ARCHITECTURE.md
-- docs/STACK.md
+# Supabase Rules
+- Never hardcode keys or secrets.
+- Use environment variables for Supabase URL and anon key.
+- Do not put service-role secrets into client code.
+- Prefer typed queries and central helper functions.
+- Schema changes must be represented as migrations.
 
-These files define:
-- product vision
-- architecture decisions
-- technical constraints
+# Deployment
+- Web deploys to Vercel.
+- Mobile builds use Expo/EAS.
+- Do not introduce deployment assumptions that require a custom server unless explicitly requested.
 
-Never ignore them, even if they are not explicitly mentioned.
+# Do / Don’t
+Do:
+- keep changes minimal and scoped
+- reuse existing patterns before introducing new abstractions
+- update types when API/data shapes change
 
----
-
-## Task Resolution
-
-Tasks are stored in:
-
-tasks/<number>-<name>.md
-
-When a task is referenced (e.g. "Task 002"):
-
-- automatically resolve the matching file in /tasks
-- load and follow its instructions
-- treat it as the primary implementation source
-
-Example:
-Task 002 → tasks/002-home-screen.md
-
----
-
-## Working Style
-
-- make the smallest reasonable change
-- prefer simple solutions
-- do not refactor broadly unless required
-- preserve existing structure
-- explain when rebuild is required
-
----
-
-## Boundaries
-
-- do not upgrade Expo SDK unless explicitly asked
-- do not add unnecessary dependencies
-- prefer:
-  npx expo install <package>
-- do not use --force or --legacy-peer-deps
-
----
-
-## App Safety Rules
-
-- app must remain runnable
-- no breaking boot flow
-- no unnecessary architectural changes
-
----
-
-## Validation Rules
-
-After changes:
-
-- ensure app starts
-- no crash / no red screen
-
-Recommended commands:
-
-npm install  
-npx expo start --clear  
-
-Optional:
-
-npx expo-doctor  
-
----
-
-## Definition of Done
-
-- task implemented
-- app runs
-- feature works
-- no unintended changes
-
----
-
-## Response Format
-
-Always provide:
-
-1. what changed
-2. why
-3. rebuild needed? (yes/no)
-4. how to test
-5. next step (optional)
-
----
-
-## Short Rule
-
-Keep it simple. Keep it running. Follow the task.
+Do not:
+- add new state libraries without a clear reason
+- duplicate Supabase access logic across screens
+- store secrets in the repo
