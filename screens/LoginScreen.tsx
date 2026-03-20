@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import {
+  Platform,
   View,
   Text,
   TouchableOpacity,
@@ -20,7 +21,9 @@ export default function LoginScreen() {
     setLoading(true);
     setError(null);
     try {
-      const redirectTo = makeRedirectUri({ scheme: 'excurole' });
+      const redirectTo = Platform.OS === 'web'
+        ? window.location.origin
+        : makeRedirectUri({ scheme: 'excurole' });
 
       const { data, error } = await supabase.auth.signInWithOAuth({
         provider: 'google',
